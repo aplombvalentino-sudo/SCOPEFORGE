@@ -1,0 +1,296 @@
+@import "tailwindcss";
+
+/* ================================================================
+   SCOPEFORGE design tokens
+   Dark "petrol control room" is the default theme.
+   Light theme overrides via [data-theme="light"].
+   Components consume ONLY semantic tokens — never raw hex.
+   ================================================================ */
+
+:root {
+  /* surfaces — cool green-graphite neutrals, never pure black */
+  --bg: #0b0e0d;
+  --surface: #101413;
+  --raised: #151a18;
+  --overlay: #1a201e;
+  --inset: #070908;
+
+  /* lines */
+  --line: rgba(158, 176, 169, 0.13);
+  --line-strong: rgba(158, 176, 169, 0.27);
+
+  /* ink */
+  --ink: #e7ecea;
+  --ink-mute: #9caca6;
+  --ink-faint: #5f6b66;
+
+  /* single accent — petrol teal */
+  --accent: #2ec79e;
+  --accent-hover: #45dcb3;
+  --accent-soft: rgba(46, 199, 158, 0.13);
+  --accent-line: rgba(46, 199, 158, 0.35);
+  --on-accent: #03241b;
+
+  /* status — muted, never candy */
+  --ok: #4fc287;
+  --ok-soft: rgba(79, 194, 135, 0.13);
+  --warn: #d9a13d;
+  --warn-soft: rgba(217, 161, 61, 0.13);
+  --danger: #e05a4f;
+  --danger-soft: rgba(224, 90, 79, 0.13);
+  --info: #5ba8dd;
+  --info-soft: rgba(91, 168, 221, 0.13);
+
+  /* elevation */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 4px 18px -4px rgba(0, 0, 0, 0.55);
+  --shadow-3: 0 24px 64px -16px rgba(0, 0, 0, 0.65);
+  --glow-accent: 0 0 0 1px var(--accent-line), 0 0 28px rgba(46, 199, 158, 0.18);
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #f1f3f2;
+  --surface: #f9fafa;
+  --raised: #fdfefd;
+  --overlay: #ffffff;
+  --inset: #e7ebe9;
+
+  --line: rgba(22, 38, 32, 0.12);
+  --line-strong: rgba(22, 38, 32, 0.24);
+
+  --ink: #15201c;
+  --ink-mute: #50605a;
+  --ink-faint: #8b968f;
+
+  --accent: #0d8a6a;
+  --accent-hover: #0a7a5e;
+  --accent-soft: rgba(13, 138, 106, 0.1);
+  --accent-line: rgba(13, 138, 106, 0.35);
+  --on-accent: #f2fbf8;
+
+  --ok: #1e8f55;
+  --ok-soft: rgba(30, 143, 85, 0.11);
+  --warn: #9a6d17;
+  --warn-soft: rgba(154, 109, 23, 0.12);
+  --danger: #bb3b31;
+  --danger-soft: rgba(187, 59, 49, 0.1);
+  --info: #2470a8;
+  --info-soft: rgba(36, 112, 168, 0.1);
+
+  --shadow-1: 0 1px 2px rgba(20, 32, 27, 0.08);
+  --shadow-2: 0 4px 18px -4px rgba(20, 32, 27, 0.12);
+  --shadow-3: 0 24px 64px -16px rgba(20, 32, 27, 0.18);
+  --glow-accent: 0 0 0 1px var(--accent-line), 0 0 24px rgba(13, 138, 106, 0.14);
+
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-overlay: var(--overlay);
+  --color-inset: var(--inset);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-ink: var(--ink);
+  --color-ink-mute: var(--ink-mute);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-on-accent: var(--on-accent);
+
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body: var(--font-manrope), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 7px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+
+  --shadow-e1: var(--shadow-1);
+  --shadow-e2: var(--shadow-2);
+  --shadow-e3: var(--shadow-3);
+  --shadow-glow: var(--glow-accent);
+
+  --ease-swift: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-settle: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --breakpoint-3xl: 1760px;
+}
+
+/* ============ base ============ */
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  font-feature-settings: "ss01" on;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* hairline scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* keyboard focus — accent ring, only when navigating by keyboard */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ============ utilities ============ */
+
+/* technical micro-label: mono, uppercase, letterspaced */
+@utility microlabel {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* tabular figures for all metrics */
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" on;
+}
+
+/* blueprint grid texture — use sparingly (hero, dashboard header) */
+@utility blueprint {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* radial mask to fade the blueprint grid out at edges */
+@utility blueprint-fade {
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 35%, transparent 78%);
+}
+
+/* hairline panel — the standard work surface */
+@utility panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+/* elevated panel */
+@utility panel-raised {
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+
+/* inset well (code, raw intake, quotes) */
+@utility well {
+  background: var(--inset);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+/* ============ proposal document (client-facing) ============ */
+
+.doc-serif {
+  letter-spacing: -0.01em;
+}
+.doc-page {
+  background: var(--raised);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-3);
+}
+
+/* ============ motion hygiene ============ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* skeleton shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -460px 0;
+  }
+  100% {
+    background-position: 460px 0;
+  }
+}
+.skeleton {
+  border-radius: var(--radius-sm);
+  background: var(--inset);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--line) 50%,
+    transparent 100%
+  );
+  background-size: 460px 100%;
+  background-repeat: no-repeat;
+  animation: shimmer 1.4s var(--ease-swift) infinite;
+}
+
+/* pulsing dot for "live" indicators */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 2.2s ease-in-out infinite;
+}
