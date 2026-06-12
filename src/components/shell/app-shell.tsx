@@ -211,6 +211,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           </div>
           <Menu
             align="end"
+            side="top"
             trigger={
               <button
                 aria-label="Account menu"

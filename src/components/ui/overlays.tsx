@@ -194,10 +194,13 @@ export function Menu({
   items,
   trigger,
   align = "end",
+  side = "bottom",
 }: {
   items: MenuItem[];
   trigger: ReactNode;
   align?: "start" | "end";
+  /** "top" opens the menu above the trigger — use near the bottom of the viewport */
+  side?: "bottom" | "top";
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -224,13 +227,14 @@ export function Menu({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 4, scale: 0.98 }}
+            initial={{ opacity: 0, y: side === "top" ? -4 : 4, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 2, scale: 0.99 }}
+            exit={{ opacity: 0, y: side === "top" ? -2 : 2, scale: 0.99 }}
             transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
             role="menu"
             className={cx(
-              "absolute z-40 mt-1.5 min-w-44 overflow-hidden rounded-lg border border-line bg-overlay p-1 shadow-e2",
+              "absolute z-40 min-w-44 overflow-hidden rounded-lg border border-line bg-overlay p-1 shadow-e2",
+              side === "top" ? "bottom-full mb-1.5" : "top-full mt-1.5",
               align === "end" ? "right-0" : "left-0"
             )}
           >
